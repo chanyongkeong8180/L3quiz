@@ -83,7 +83,6 @@ const Quiz = () => {
                   if (forth === forthAnswer) {
                       score += 1;
                   }
-
                   if (score < total / 2) {
                       message = 'Please try again! '
                   }
