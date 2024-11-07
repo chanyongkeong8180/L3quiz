@@ -17,6 +17,9 @@ const Quiz = () => {
                       Colour Quiz
                       <Icon name='clipboard-question' size={20} />
                   </Text>
+              </View>
+
+              <View style={styles.exterior}>
                   <Text style={styles.text}>
                       What is the background colour of this image?
                   </Text>
@@ -31,7 +34,7 @@ const Quiz = () => {
                   />
               </View>
 
-              <View>
+              <View style={styles.exterior}>
                   <Text style={styles.text}>
                       What is the background colour of this image?
                   </Text>
@@ -46,7 +49,7 @@ const Quiz = () => {
                   />
               </View>
 
-              <View>
+              <View style={styles.exterior}>
                   <Text style={styles.text}>
                           What is the colour of this animal eye?
                   </Text>
@@ -61,7 +64,7 @@ const Quiz = () => {
                   />
               </View>
 
-              <View>
+              <View style={styles.exterior}>
                   <Text style={styles.text}>
                       What is the colour of this animal eye?
                   </Text>
@@ -74,6 +77,9 @@ const Quiz = () => {
                           {label: 'Orange', value: 'Orange'},
                       ]}
                   />
+              </View>
+
+              <View>
                   <Button onPress={()=> {
                       let message = ''
                       let score = 0;
@@ -107,7 +113,7 @@ const Quiz = () => {
                           Alert.alert(message + 'You score ' + score + '/'
                               + total + ' for the quiz.')
                       }
-                  }} title="Submit Answers" color="#00ff00" />
+                  }} title="Submit Answers" color="#566756" />
               </View>
           </ScrollView>
         </View>
@@ -120,18 +126,19 @@ const styles = StyleSheet.create({
     exterior: {
         flex: 1,
         flexDirection: 'column',
-        margin: 30,
+        backgroundColor: '#006362',
         borderWidth: 2,
-        borderColor: 'skyblue'
+        borderColor: 'skyblue',
+        marginTop: 30
     },
     text: {
-        color: 'blue',
+        color: '#e9e9e9',
         textAlign: 'center',
         fontWeight: 'bold',
         margin: 10
     },
     image: {
-        width: 400,
+        maxWidth: '100%',
         height: 400
     }
 });
