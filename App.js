@@ -19,7 +19,7 @@ const Quiz = () => {
                   </Text>
               </View>
 
-              <View style={styles.exterior}>
+              <View style={styles.interior}>
                   <Text style={styles.text}>
                       What is the background colour of this image?
                   </Text>
@@ -34,7 +34,7 @@ const Quiz = () => {
                   />
               </View>
 
-              <View style={styles.exterior}>
+              <View style={styles.interior}>
                   <Text style={styles.text}>
                       What is the background colour of this image?
                   </Text>
@@ -49,7 +49,7 @@ const Quiz = () => {
                   />
               </View>
 
-              <View style={styles.exterior}>
+              <View style={styles.interior}>
                   <Text style={styles.text}>
                           What is the colour of this animal eye?
                   </Text>
@@ -64,7 +64,7 @@ const Quiz = () => {
                   />
               </View>
 
-              <View style={styles.exterior}>
+              <View style={styles.interior}>
                   <Text style={styles.text}>
                       What is the colour of this animal eye?
                   </Text>
@@ -127,9 +127,12 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#006362',
+        marginTop: 30
+    },
+    interior: {
         borderWidth: 2,
         borderColor: 'skyblue',
-        marginTop: 30
+        margin: 10
     },
     text: {
         color: '#e9e9e9',
