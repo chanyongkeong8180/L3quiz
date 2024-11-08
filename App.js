@@ -12,15 +12,15 @@ const Quiz = () => {
         <View style={styles.exterior}>
           <ScrollView>
               <View>
-                  <Text style={[styles.text, {textTransform: 'uppercase'}]}>
+                  <Text style={[styles.text, {textTransform: 'uppercase', fontWeight: 'bold', textAlign: 'center'}]}>
                       <Icon name='clipboard-question' size={20} />
                       Colour Quiz
                       <Icon name='clipboard-question' size={20} />
                   </Text>
               </View>
 
-              <View style={styles.interior}>
-                  <Text style={styles.text}>
+              <View style={[styles.interior]}>
+                  <Text style={[styles.text]}>
                       What is the background colour of this image?
                   </Text>
                   <Image source={require('./img/deer.jpg')} style={styles.image} />
@@ -34,8 +34,8 @@ const Quiz = () => {
                   />
               </View>
 
-              <View style={styles.interior}>
-                  <Text style={styles.text}>
+              <View style={[styles.interior]}>
+                  <Text style={[styles.text]}>
                       What is the background colour of this image?
                   </Text>
                   <Image source={require('./img/turtle.jpg')} style={styles.image} />
@@ -49,8 +49,8 @@ const Quiz = () => {
                   />
               </View>
 
-              <View style={styles.interior}>
-                  <Text style={styles.text}>
+              <View style={[styles.interior]}>
+                  <Text style={[styles.text]}>
                           What is the colour of this animal eye?
                   </Text>
                   <Image source={require('./img/owl.jpg')} style={styles.image} />
@@ -64,8 +64,8 @@ const Quiz = () => {
                   />
               </View>
 
-              <View style={styles.interior}>
-                  <Text style={styles.text}>
+              <View style={[styles.interior]}>
+                  <Text style={[styles.text]}>
                       What is the colour of this animal eye?
                   </Text>
                   <Image source={require('./img/tiger.jpg')} style={styles.image} />
@@ -136,8 +136,6 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#e9e9e9',
-        textAlign: 'center',
-        fontWeight: 'bold',
         margin: 10
     },
     image: {
