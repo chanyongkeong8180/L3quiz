@@ -1,15 +1,39 @@
-import React, {useState} from 'react';
-import {View, Text, Image, ScrollView, Button, ToastAndroid, Alert, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StatusBar, View, Text, Image, ScrollView, Button, ToastAndroid, Alert, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import RNPickerSelect from 'react-native-picker-select';
+import {Audio} from 'expo-av';
 
 const Quiz = () => {
     const [first, setFirst] = useState('');
     const [second, setSecond] = useState('');
     const [third, setThird] = useState('');
     const [forth, setForth] = useState('');
+    const [sound, setSound] = useState();
+
+    async function congrats () {
+        const file = require('./congrats.wav')
+        const {sound} = await Audio.Sound.createAsync(file);
+        setSound(sound);
+        await sound.playAsync();
+    }
+
+    async function failed () {
+        const file = require('./failed.wav')
+        const {sound} = await Audio.Sound.createAsync(file);
+        setSound(sound);
+        await sound.playAsync();
+    }
+
+    useEffect(() => {
+        return sound ? () => {
+            sound.unloadAsync();
+        } : undefined;
+    }, [sound]);
+
     return (
         <View style={styles.exterior}>
+         <StatusBar/>
           <ScrollView>
               <View>
                   <Text style={[styles.text, {textTransform: 'uppercase', fontWeight: 'bold', textAlign: 'center'}]}>
@@ -51,7 +75,7 @@ const Quiz = () => {
 
               <View style={[styles.interior]}>
                   <Text style={[styles.text]}>
-                          What is the colour of this animal eye?
+                      What is the colour of this animal eye?
                   </Text>
                   <Image source={require('./img/owl.jpg')} style={styles.image} />
                   <RNPickerSelect
@@ -106,9 +130,11 @@ const Quiz = () => {
                           }
                           if (score < total / 2) {
                               message = 'Please try again! '
+                              failed()
                           }
                           if (score >= total / 2) {
                               message = 'Congratulations! '
+                              congrats()
                           }
                           Alert.alert(message + 'You score ' + score + '/'
                               + total + ' for the quiz.')
@@ -127,7 +153,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#006362',
-        marginTop: 30
     },
     interior: {
         borderWidth: 2,
