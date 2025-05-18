@@ -1,8 +1,8 @@
-import React, {useState, useEffect, use} from 'react';
+import React, {useState} from 'react';
 import {StatusBar, View, Text, Image, ScrollView, Button, ToastAndroid, Alert, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import RNPickerSelect from 'react-native-picker-select';
-import {createAudioPlayer} from 'expo-audio';
+import {useAudioPlayer} from 'expo-audio';
 
 const congrats = require('./congrats.wav')
 const failed = require('./failed.wav')
@@ -13,8 +13,8 @@ const Quiz = () => {
     const [third, setThird] = useState('');
     const [forth, setForth] = useState('');
 
-    const congratsPlayer = createAudioPlayer(congrats)
-    const failedPlayer = createAudioPlayer(failed)
+    const congratsPlayer = useAudioPlayer(congrats)
+    const failedPlayer = useAudioPlayer(failed)
 
     return (
         <View style={styles.exterior}>
@@ -113,12 +113,12 @@ const Quiz = () => {
                           if (forth === forthAnswer) {
                               score += 1;
                           }
-                          if (score < total / 2 && !failedPlayer.playing) {
-                              failedPlayer.play()
+                          if (score < total / 2) {
+                              {!failedPlayer.playing && failedPlayer.play()}
                               message = 'Please try again! '
                           }
-                          if (score >= total / 2 && !congratsPlayer.playing) {
-                              congratsPlayer.play()
+                          if (score >= total / 2) {
+                              {!congratsPlayer.playing && congratsPlayer.play()}
                               message = 'Congratulations! '
                           }
                           Alert.alert(message + 'You score ' + score + '/'
