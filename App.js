@@ -1,35 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, use} from 'react';
 import {StatusBar, View, Text, Image, ScrollView, Button, ToastAndroid, Alert, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import RNPickerSelect from 'react-native-picker-select';
-import {Audio} from 'expo-av';
+import {createAudioPlayer} from 'expo-audio';
+
+const congrats = require('./congrats.wav')
+const failed = require('./failed.wav')
 
 const Quiz = () => {
     const [first, setFirst] = useState('');
     const [second, setSecond] = useState('');
     const [third, setThird] = useState('');
     const [forth, setForth] = useState('');
-    const [sound, setSound] = useState();
 
-    async function congrats () {
-        const file = require('./congrats.wav')
-        const {sound} = await Audio.Sound.createAsync(file);
-        setSound(sound);
-        await sound.playAsync();
-    }
-
-    async function failed () {
-        const file = require('./failed.wav')
-        const {sound} = await Audio.Sound.createAsync(file);
-        setSound(sound);
-        await sound.playAsync();
-    }
-
-    useEffect(() => {
-        return sound ? () => {
-            sound.unloadAsync();
-        } : undefined;
-    }, [sound]);
+    const congratsPlayer = createAudioPlayer(congrats)
+    const failedPlayer = createAudioPlayer(failed)
 
     return (
         <View style={styles.exterior}>
@@ -128,13 +113,13 @@ const Quiz = () => {
                           if (forth === forthAnswer) {
                               score += 1;
                           }
-                          if (score < total / 2) {
+                          if (score < total / 2 && !failedPlayer.playing) {
+                              failedPlayer.play()
                               message = 'Please try again! '
-                              failed()
                           }
-                          if (score >= total / 2) {
+                          if (score >= total / 2 && !congratsPlayer.playing) {
+                              congratsPlayer.play()
                               message = 'Congratulations! '
-                              congrats()
                           }
                           Alert.alert(message + 'You score ' + score + '/'
                               + total + ' for the quiz.')
