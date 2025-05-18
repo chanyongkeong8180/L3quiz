@@ -13,8 +13,7 @@ const Quiz = () => {
     const [third, setThird] = useState('');
     const [forth, setForth] = useState('');
 
-    const congratsPlayer = useAudioPlayer(congrats)
-    const failedPlayer = useAudioPlayer(failed)
+    const player = useAudioPlayer()
 
     return (
         <View style={styles.exterior}>
@@ -114,11 +113,13 @@ const Quiz = () => {
                               score += 1;
                           }
                           if (score < total / 2) {
-                              {!failedPlayer.playing && failedPlayer.play()}
+                              player.replace(failed)
+                              player.play()
                               message = 'Please try again! '
                           }
                           if (score >= total / 2) {
-                              {!congratsPlayer.playing && congratsPlayer.play()}
+                              player.replace(congrats)
+                              player.play()
                               message = 'Congratulations! '
                           }
                           Alert.alert(message + 'You score ' + score + '/'
